@@ -1,5 +1,5 @@
 import { shaderMaterial } from '@react-three/drei'
-import { extend, useFrame } from '@react-three/fiber'
+import { extend } from '@react-three/fiber'
 import { useControls } from 'leva'
 import * as THREE from 'three'
 import gridVertexShader from './vertex.glsl'
@@ -22,7 +22,6 @@ export default function Grid()
     // shader
     const GridMaterial = shaderMaterial(
         {
-            uTime: 0,
             uBrightness: brightness,
             uThickness: thickness
         },
@@ -36,10 +35,6 @@ export default function Grid()
         meshRef.current.material.uniforms.uThickness.value = thickness
 
     },[thickness,brightness])
-
-    useFrame((state)=>{
-        meshRef.current.material.uniforms.uTime.value = state.clock.elapsedTime
-    })
     
     extend({GridMaterial})
 
